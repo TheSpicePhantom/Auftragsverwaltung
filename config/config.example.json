@@ -1,0 +1,44 @@
+{
+  "unternehmen": {
+    "name": "Ihr Firmenname",
+    "strasse": "Musterstraße 1",
+    "plz": "12345",
+    "ort": "Musterstadt",
+    "telefon": "+49 123 456789",
+    "email": "info@ihre-firma.de",
+    "ust_id": "DE123456789",
+    "iban": "DE89 3704 0044 0532 0130 00",
+    "bic": "COBADEFFXXX",
+    "bank": "Ihre Bank"
+  },
+  "rechnung": {
+    "mwst_satz": 19.0,
+    "rechnungsnummer_prefix": "RE",
+    "rechnungsnummer_start": 1000,
+    "zahlungsziel_tage": 14,
+    "zahlungsarten": [
+      "Überweisung",
+      "Bar",
+      "Scheck"
+    ]
+  },
+  "auftrag": {
+    "auftragsnummer_prefix": "AUF",
+    "auftragsnummer_start": 1000,
+    "status_optionen": [
+      "Angebot",
+      "Bestätigt",
+      "In Bearbeitung",
+      "Abgeschlossen",
+      "Storniert"
+    ]
+  },
+  "daten": {
+    "daten_pfad": "",
+    "kunden_datei": "kunden.json",
+    "auftraege_datei": "auftraege.json",
+    "rechnungen_datei": "rechnungen.json",
+    "stundennachweise_datei": "stundennachweise.json",
+    "stuecklisten_datei": "stuecklisten.json"
+  }
+}
