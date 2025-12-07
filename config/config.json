@@ -1,10 +1,10 @@
 {
   "unternehmen": {
-    "name": "",
-    "strasse": "",
-    "plz": "",
-    "ort": "",
-    "telefon": "",
+    "name": "Richard Kiermeier",
+    "strasse": "Camerloherstraße 28",
+    "plz": "85737",
+    "ort": "Ismaning",
+    "telefon": "0162 / 653 154 6",
     "email": "",
     "ust_id": "",
     "iban": "DExx",

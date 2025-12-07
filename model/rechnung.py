@@ -61,10 +61,10 @@ class Rechnung:
         self.mwst_betrag = self.nettobetrag * (self.mwst_satz / 100)
         self.bruttobetrag = self.nettobetrag + self.mwst_betrag
     
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self, auftragsnummer: Optional[str] = None) -> Dict[str, Any]:
         """Konvertiert Rechnung zu Dictionary"""
         self._berechnen()
-        return {
+        result = {
             "id": self.id,
             "rechnungsnummer": self.rechnungsnummer,
             "auftrag_id": self.auftrag_id,
@@ -82,6 +82,9 @@ class Rechnung:
             "notizen": self.notizen,
             "pauschal": self.pauschal
         }
+        if auftragsnummer:
+            result["auftragsnummer"] = auftragsnummer
+        return result
     
     @classmethod
     def from_dict(cls, data: Dict[str, Any]) -> 'Rechnung':

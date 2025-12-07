@@ -85,7 +85,7 @@ class PDFGenerator:
             ['Rechnungsdatum:', rechnungsdatum.strftime('%d.%m.%Y')],
             ['Leistungsdatum:', leistungsdatum.strftime('%d.%m.%Y')],
             ['Fälligkeitsdatum:', faelligkeitsdatum.strftime('%d.%m.%Y')],
-            ['Kundennummer:', kunde.get('kundennummer', 'N/A')],
+            ['Kundennummer:', kunde.get('id', 'N/A')],
         ]
         
         details_table = Table(details_data, colWidths=[50*mm, 60*mm])
@@ -99,21 +99,46 @@ class PDFGenerator:
         story.append(Spacer(1, 10*mm))
         
         # Anrede
-        anrede = f"Sehr geehrte Damen und Herren," if not kunde.get('name') else f"Sehr geehrte/r {kunde.get('name', '')},"
+        # Verbesserte Anrede: Firma hat Vorrang, sonst Name
+        if kunde.get('firma'):
+            anrede = f"Sehr geehrte Damen und Herren,"
+        elif kunde.get('name'):
+            # Wenn Vorname vorhanden, verwende "Herr/Frau Vorname Name", sonst nur Name
+            if kunde.get('vorname'):
+                anrede = f"Sehr geehrte/r {kunde.get('vorname', '')} {kunde.get('name', '')},"
+            else:
+                anrede = f"Sehr geehrte/r {kunde.get('name', '')},"
+        else:
+            anrede = "Sehr geehrte Damen und Herren,"
         story.append(Paragraph(anrede, styles['Normal']))
         story.append(Spacer(1, 5*mm))
         
-        intro_text = "hiermit erlauben wir uns, Ihnen folgende Leistungen in Rechnung zu stellen:"
+        # Einleitung mit Auftragsnummer
+        auftragsnummer = rechnung.get('auftragsnummer', '')
+        if auftragsnummer:
+            intro_text = f"hiermit erlauben wir uns, Ihnen die Leistungen zu Auftrag {auftragsnummer} in Rechnung zu stellen:"
+        else:
+            intro_text = "hiermit erlauben wir uns, Ihnen folgende Leistungen in Rechnung zu stellen:"
         story.append(Paragraph(intro_text, styles['Normal']))
         story.append(Spacer(1, 8*mm))
         
         # Positionstabelle
+        # Paragraph-Style für Beschreibung mit Word-Wrap
+        beschreibung_style = ParagraphStyle(
+            'BeschreibungStyle',
+            parent=styles['Normal'],
+            fontSize=9,
+            wordWrap='CJK',  # Ermöglicht Word-Wrap
+            leading=10.8  # Zeilenhöhe
+        )
+        
         pos_data = [['Pos.', 'Beschreibung', 'Menge', 'Einheit', 'Einzelpreis', 'Gesamt']]
         
         for idx, pos in enumerate(rechnung['positionen'], 1):
+            beschreibung_text = pos.get('beschreibung', pos.get('bezeichnung', ''))
             pos_data.append([
                 str(idx),
-                pos.get('beschreibung', pos.get('bezeichnung', '')),
+                Paragraph(beschreibung_text, beschreibung_style),
                 f"{pos.get('menge', 0):.2f}",
                 pos.get('einheit', 'Stk'),
                 f"{pos.get('einzelpreis', 0):.2f} €",
@@ -130,7 +155,7 @@ class PDFGenerator:
             ('FONTSIZE', (0, 0), (-1, -1), 9),
             ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
             ('GRID', (0, 0), (-1, -1), 0.5, colors.grey),
-            ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
+            ('VALIGN', (0, 0), (-1, -1), 'TOP'),  # TOP statt MIDDLE für mehrzeilige Beschreibungen
         ]))
         story.append(pos_table)
         story.append(Spacer(1, 5*mm))
@@ -222,7 +247,7 @@ class PDFGenerator:
                 )
             
             # Firmenadresse (links oben, klein)
-            canvas_obj.setFont('Helvetica', 8)
+            canvas_obj.setFont('Helvetica', 7)
             y_pos = A4[1] - 15*mm
             canvas_obj.drawString(20*mm, y_pos, self.unternehmen.get('name', ''))
             y_pos -= 3.5*mm
@@ -231,7 +256,7 @@ class PDFGenerator:
             canvas_obj.drawString(20*mm, y_pos, f"{self.unternehmen.get('plz', '')} {self.unternehmen.get('ort', '')}")
             
             # Absenderzeile (DIN 5008 Rücksendeangabe)
-            canvas_obj.setFont('Helvetica', 7)
+            canvas_obj.setFont('Helvetica', 6)
             absender_zeile = f"{self.unternehmen.get('name', '')} • {self.unternehmen.get('strasse', '')} • {self.unternehmen.get('plz', '')} {self.unternehmen.get('ort', '')}"
             
             # Linie unter Absenderzeile

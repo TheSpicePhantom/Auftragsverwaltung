@@ -67,7 +67,7 @@ class DatenManager:
                 auftragsnummer = auftrag.auftragsnummer
                 if auftragsnummer not in rechnungen_nach_auftrag:
                     rechnungen_nach_auftrag[auftragsnummer] = []
-                rechnungen_nach_auftrag[auftragsnummer].append(rechnung.to_dict())
+                rechnungen_nach_auftrag[auftragsnummer].append(rechnung.to_dict(auftragsnummer=auftragsnummer))
         
         # Speichere pro Auftrag
         for auftragsnummer, auftrag_rechnungen in rechnungen_nach_auftrag.items():
@@ -240,7 +240,7 @@ class DatenManager:
             auftrag = self.get_auftrag(rechnung.auftrag_id)
             if auftrag:
                 rechnungen_data = self.adapter.lade_rechnungen_fuer_auftrag(auftrag.auftragsnummer)
-                rechnungen_data.append(rechnung.to_dict())
+                rechnungen_data.append(rechnung.to_dict(auftragsnummer=auftrag.auftragsnummer))
                 self.adapter.speichere_rechnungen_fuer_auftrag(auftrag.auftragsnummer, rechnungen_data)
             else:
                 self.speichere_alle_daten()
@@ -259,10 +259,10 @@ class DatenManager:
                     # Aktualisiere die Rechnung in der Liste
                     for j, rechnung_dict in enumerate(rechnungen_data):
                         if rechnung_dict.get("id") == rechnung.id:
-                            rechnungen_data[j] = rechnung.to_dict()
+                            rechnungen_data[j] = rechnung.to_dict(auftragsnummer=auftrag.auftragsnummer)
                             break
                     else:
-                        rechnungen_data.append(rechnung.to_dict())
+                        rechnungen_data.append(rechnung.to_dict(auftragsnummer=auftrag.auftragsnummer))
                     self.adapter.speichere_rechnungen_fuer_auftrag(auftrag.auftragsnummer, rechnungen_data)
                 else:
                     self.speichere_alle_daten()

@@ -180,8 +180,10 @@ class RechnungenView:
             try:
                 from adapter.pdf_generator import PDFGenerator
                 pdf_gen = PDFGenerator(self.manager.adapter.config)
+                auftrag = self.manager.get_auftrag(rechnung.auftrag_id)
+                auftragsnummer = auftrag.auftragsnummer if auftrag else None
                 pdf_gen.rechnung_erstellen(
-                    rechnung.to_dict(), 
+                    rechnung.to_dict(auftragsnummer=auftragsnummer), 
                     kunde.to_dict(), 
                     pfad
                 )
@@ -236,8 +238,10 @@ class RechnungenView:
                         if not output_path:
                             return
                     
+                    auftrag = self.manager.get_auftrag(rechnung.auftrag_id)
+                    auftragsnummer = auftrag.auftragsnummer if auftrag else None
                     generator.rechnung_erstellen(
-                        rechnung.to_dict(),
+                        rechnung.to_dict(auftragsnummer=auftragsnummer),
                         kunde.to_dict(),
                         output_path
                     )
