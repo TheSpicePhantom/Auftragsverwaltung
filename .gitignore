@@ -2,6 +2,25 @@
 data/*.json
 !data/.gitkeep
 
+# Auftragsspezifische JSON-Dateien (vertraulich)
+data/**/stundennachweise.json
+data/**/stuecklisten.json
+data/**/rechnungen.json
+
+# Rechnungsordner (vertraulich - PDFs und Dokumente)
+data/**/Rechnungen/
+**/Rechnungen/
+
+# Dokumentationsordner (vertraulich - Fotos, Skizzen, Berechnungen)
+data/**/Dokumentation/
+**/Dokumentation/
+
+# PDF-Dateien in Auftragsordnern (vertraulich)
+data/**/*.pdf
+**/Rechnung_*.pdf
+**/Stueckliste_*.pdf
+**/Stundennachweis_*.pdf
+
 # Konfiguration mit sensiblen Daten
 config/config.json
 !config/config.example.json
