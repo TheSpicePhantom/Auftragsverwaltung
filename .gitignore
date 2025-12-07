@@ -57,3 +57,4 @@ htmlcov/
 
 # OS
 Thumbs.db
+config/config.json
