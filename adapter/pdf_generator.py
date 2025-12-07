@@ -122,11 +122,11 @@ class PDFGenerator:
         for idx, pos in enumerate(rechnung['positionen'], 1):
             pos_data.append([
                 str(idx),
-                pos['beschreibung'],
-                f"{pos['menge']:.2f}",
-                pos['einheit'],
-                f"{pos['einzelpreis']:.2f} €",
-                f"{pos['gesamtpreis']:.2f} €"
+                pos.get('beschreibung', pos.get('bezeichnung', '')),
+                f"{pos.get('menge', 0):.2f}",
+                pos.get('einheit', 'Stk'),
+                f"{pos.get('einzelpreis', 0):.2f} €",
+                f"{pos.get('gesamtpreis', 0):.2f} €"
             ])
         
         pos_table = Table(pos_data, colWidths=[10*mm, 70*mm, 20*mm, 20*mm, 25*mm, 25*mm])

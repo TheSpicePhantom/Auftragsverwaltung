@@ -2,7 +2,7 @@
 View für Rechnungsverwaltung
 """
 import tkinter as tk
-from tkinter import ttk, messagebox
+from tkinter import ttk, messagebox, filedialog
 from pathlib import Path
 from datetime import datetime, date
 from adapter.manager import DatenManager
@@ -29,6 +29,7 @@ class RechnungenView:
         
         ttk.Button(toolbar, text="Bearbeiten", command=self._bearbeite_rechnung).pack(side=tk.LEFT, padx=2)
         ttk.Button(toolbar, text="Als bezahlt markieren", command=self._markiere_bezahlt).pack(side=tk.LEFT, padx=2)
+        ttk.Button(toolbar, text="📄 PDF erstellen", command=self._pdf_erstellen).pack(side=tk.LEFT, padx=2)
         ttk.Button(toolbar, text="Drucken/Exportieren", command=self._drucke_rechnung).pack(side=tk.LEFT, padx=2)
         ttk.Button(toolbar, text="Aktualisieren", command=self._lade_rechnungen).pack(side=tk.LEFT, padx=2)
         
@@ -77,6 +78,7 @@ class RechnungenView:
         self.context_menu = tk.Menu(self.tree, tearoff=0)
         self.context_menu.add_command(label="Bearbeiten", command=self._bearbeite_rechnung)
         self.context_menu.add_command(label="Als bezahlt markieren", command=self._markiere_bezahlt)
+        self.context_menu.add_command(label="📄 PDF erstellen", command=self._pdf_erstellen)
         self.context_menu.add_command(label="Drucken/Exportieren", command=self._drucke_rechnung)
         self.context_menu.add_separator()
         self.context_menu.add_command(label="Löschen", command=self._loesche_rechnung, foreground="red")
@@ -149,6 +151,46 @@ class RechnungenView:
             self._aktualisiere_tab_text()
             messagebox.showinfo("Erfolg", "Rechnung wurde als bezahlt markiert.")
     
+    def _pdf_erstellen(self):
+        """Erstellt PDF mit Dateidialog"""
+        selection = self.tree.selection()
+        if not selection:
+            messagebox.showwarning("Warnung", "Bitte Rechnung auswählen")
+            return
+        
+        rechnung_id = selection[0]
+        rechnung = self.manager.get_rechnung(rechnung_id)
+        if not rechnung:
+            messagebox.showerror("Fehler", "Rechnung nicht gefunden.")
+            return
+        
+        kunde = self.manager.get_kunde(rechnung.kunde_id)
+        if not kunde:
+            messagebox.showerror("Fehler", "Kunde nicht gefunden.")
+            return
+        
+        # Speicherort wählen
+        pfad = filedialog.asksaveasfilename(
+            defaultextension=".pdf",
+            filetypes=[("PDF", "*.pdf")],
+            initialfile=f"Rechnung_{rechnung.rechnungsnummer}.pdf"
+        )
+        
+        if pfad:
+            try:
+                from adapter.pdf_generator import PDFGenerator
+                pdf_gen = PDFGenerator(self.manager.adapter.config)
+                pdf_gen.rechnung_erstellen(
+                    rechnung.to_dict(), 
+                    kunde.to_dict(), 
+                    pfad
+                )
+                messagebox.showinfo("Erfolg", f"PDF erstellt:\n{pfad}")
+            except ImportError:
+                messagebox.showerror("Fehler", "PDF-Generator konnte nicht geladen werden. Bitte installieren Sie reportlab:\npip install reportlab")
+            except Exception as e:
+                messagebox.showerror("Fehler", f"Fehler beim Erstellen des PDFs:\n{str(e)}")
+    
     def _drucke_rechnung(self):
         """Druckt/Exportiert Rechnung"""
         selection = self.tree.selection()
@@ -161,9 +203,45 @@ class RechnungenView:
         if rechnung:
             try:
                 from adapter.pdf_generator import PDFGenerator
-                generator = PDFGenerator(self.manager)
-                output_path = generator.erstelle_rechnung_pdf(rechnung)
-                messagebox.showinfo("Erfolg", f"PDF wurde erstellt:\n{output_path}")
+                generator = PDFGenerator(self.manager.adapter.config)
+                # Verwende die neue rechnung_erstellen Methode
+                kunde = self.manager.get_kunde(rechnung.kunde_id)
+                if kunde:
+                    # Standard-Pfad im Rechnungen-Ordner des Auftrags
+                    auftrag = self.manager.get_auftrag(rechnung.auftrag_id)
+                    if auftrag:
+                        auftragsordner = self.manager.adapter.get_auftragsordner_pfad(auftrag.auftragsnummer)
+                        if auftragsordner:
+                            rechnungen_ordner = Path(auftragsordner) / "Rechnungen"
+                            rechnungen_ordner.mkdir(parents=True, exist_ok=True)
+                            datum_str = rechnung.rechnungsdatum.strftime("%Y%m%d")
+                            dateiname = f"Rechnung_{rechnung.rechnungsnummer}_{datum_str}.pdf"
+                            output_path = str(rechnungen_ordner / dateiname)
+                        else:
+                            # Fallback: Dateidialog
+                            output_path = filedialog.asksaveasfilename(
+                                defaultextension=".pdf",
+                                filetypes=[("PDF", "*.pdf")],
+                                initialfile=f"Rechnung_{rechnung.rechnungsnummer}.pdf"
+                            )
+                            if not output_path:
+                                return
+                    else:
+                        # Fallback: Dateidialog
+                        output_path = filedialog.asksaveasfilename(
+                            defaultextension=".pdf",
+                            filetypes=[("PDF", "*.pdf")],
+                            initialfile=f"Rechnung_{rechnung.rechnungsnummer}.pdf"
+                        )
+                        if not output_path:
+                            return
+                    
+                    generator.rechnung_erstellen(
+                        rechnung.to_dict(),
+                        kunde.to_dict(),
+                        output_path
+                    )
+                    messagebox.showinfo("Erfolg", f"PDF wurde erstellt:\n{output_path}")
             except ImportError:
                 messagebox.showerror("Fehler", "PDF-Generator konnte nicht geladen werden. Bitte installieren Sie reportlab:\npip install reportlab")
             except Exception as e:
