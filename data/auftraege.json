@@ -1,0 +1,37 @@
+[
+  {
+    "id": "A20251206111414864417",
+    "kunde_id": "K20251206111330019344",
+    "auftragsnummer": "2025-0001",
+    "bezeichnung": "Musterauftrag",
+    "beschreibung": "",
+    "erstellt_am": "2025-12-06T11:14:14.864425",
+    "faellig_am": "2026-01-01T00:00:00",
+    "status": "Abgeschlossen",
+    "positionen": [
+      {
+        "id": "POS20251206112005258970",
+        "bezeichnung": "Thermografie",
+        "menge": 10.0,
+        "einheit": "Std",
+        "einzelpreis": 40.0,
+        "gesamtpreis": 400.0,
+        "status": "Rechnung"
+      },
+      {
+        "id": "POS20251206112652367857",
+        "bezeichnung": "Trockenbau",
+        "menge": 100.0,
+        "einheit": "m²",
+        "einzelpreis": 26.0,
+        "gesamtpreis": 2600.0,
+        "status": "Rechnung"
+      }
+    ],
+    "gesamtpreis": 3000.0,
+    "mwst_satz": 19.0,
+    "mwst_betrag": 570.0,
+    "endpreis": 3570.0,
+    "notizen": ""
+  }
+]

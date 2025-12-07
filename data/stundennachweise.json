@@ -1,0 +1,30 @@
+[
+  {
+    "id": "SN20251207151123755469",
+    "auftrag_id": "A20251206111414864417",
+    "position_id": "POS20251206112652367857",
+    "projekt": "Trockenbau",
+    "kunde_id": "K20251206111330019344",
+    "auftragsnummer": "2025-0001",
+    "bearbeiter": "Kiermeier",
+    "reisestrecke_km": 0.0,
+    "anzahl_fahrten": 0,
+    "ort": "München",
+    "datum": "2025-12-07",
+    "unterschrift_kunde": "",
+    "unterschrift_bearbeiter": "",
+    "erstellt_am": "2025-12-07T15:11:23.755491",
+    "zeiteintraege": [
+      {
+        "id": "ZE20251207151350725170",
+        "datum": "2025-12-07",
+        "bearbeiter": "Kiermeier",
+        "startzeit_1": "12:15:00",
+        "endzeit_1": "13:00:00",
+        "startzeit_2": "13:30:00",
+        "endzeit_2": "15:45:00",
+        "taetigkeitsbeschreibung": "Test"
+      }
+    ]
+  }
+]

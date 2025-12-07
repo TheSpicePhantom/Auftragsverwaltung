@@ -1,0 +1,24 @@
+[
+  {
+    "id": "SL20251207165702185465",
+    "auftrag_id": "A20251206111414864417",
+    "position_id": "POS20251206112652367857",
+    "projekt": "Trockenbau",
+    "kunde_id": "K20251206111330019344",
+    "auftragsnummer": "2025-0001",
+    "notizen": "",
+    "stuecklisten_nummer": "SL20251207171353",
+    "erstellt_am": "2025-12-07T16:57:02.185485",
+    "eintraege": [
+      {
+        "id": "SE20251207165740171849",
+        "material": "Knauf Gipskartonplatte Bauplatte GKB 2000 mm x 1250 mm x 12,5 mm",
+        "menge": 100.0,
+        "einheit": "m²",
+        "einzelpreis": 4.19,
+        "gesamtpreis": 419.00000000000006,
+        "beschreibung": ""
+      }
+    ]
+  }
+]

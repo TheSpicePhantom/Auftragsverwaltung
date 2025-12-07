@@ -1,0 +1,19 @@
+[
+  {
+    "id": "K20251206111330019344",
+    "name": "Mustermann",
+    "vorname": "Muster",
+    "firma": "Musterfirma",
+    "strasse": "Musterstraße 1",
+    "plz": "00000",
+    "ort": "Musterhausen",
+    "telefon": "0000-0000000",
+    "email": "muster@mustermail.com",
+    "ust_id": "00",
+    "erstellt_am": "2025-12-06T11:13:30.019385",
+    "notizen": "",
+    "skonto": 2.0,
+    "abschlag": 0.0,
+    "rabatt": 0.0
+  }
+]

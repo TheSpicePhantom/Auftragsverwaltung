@@ -1,0 +1,119 @@
+{
+  "kunde": {
+    "id": "string",
+    "name": "string",
+    "vorname": "string",
+    "firma": "string",
+    "strasse": "string",
+    "plz": "string",
+    "ort": "string",
+    "telefon": "string",
+    "email": "string",
+    "ust_id": "string",
+    "erstellt_am": "datetime",
+    "notizen": "string"
+  },
+  "auftrag": {
+    "id": "string",
+    "kunde_id": "string",
+    "auftragsnummer": "string",
+    "bezeichnung": "string",
+    "beschreibung": "string",
+    "erstellt_am": "datetime",
+    "faellig_am": "datetime",
+    "status": "string",
+    "positionen": [
+      {
+        "id": "string",
+        "bezeichnung": "string",
+        "menge": "float",
+        "einheit": "string",
+        "einzelpreis": "float",
+        "gesamtpreis": "float",
+        "status": "string"
+      }
+    ],
+    "gesamtpreis": "float",
+    "mwst_satz": "float",
+    "mwst_betrag": "float",
+    "endpreis": "float",
+    "notizen": "string"
+  },
+  "rechnung": {
+    "id": "string",
+    "rechnungsnummer": "string",
+    "auftrag_id": "string",
+    "kunde_id": "string",
+    "rechnungsdatum": "datetime",
+    "leistungsdatum": "datetime",
+    "faelligkeitsdatum": "datetime",
+    "status": "string",
+    "positionen": [
+      {
+        "id": "string",
+        "bezeichnung": "string",
+        "menge": "float",
+        "einheit": "string",
+        "einzelpreis": "float",
+        "gesamtpreis": "float"
+      }
+    ],
+    "nettobetrag": "float",
+    "mwst_satz": "float",
+    "mwst_betrag": "float",
+    "bruttobetrag": "float",
+    "zahlungsart": "string",
+    "notizen": "string"
+  },
+  "stundennachweis": {
+    "id": "string",
+    "auftrag_id": "string",
+    "position_id": "string",
+    "projekt": "string",
+    "kunde_id": "string",
+    "auftragsnummer": "string",
+    "bearbeiter": "string",
+    "reisestrecke_km": "float",
+    "anzahl_fahrten": "integer",
+    "ort": "string",
+    "datum": "date",
+    "unterschrift_kunde": "string",
+    "unterschrift_bearbeiter": "string",
+    "erstellt_am": "datetime",
+    "zeiteintraege": [
+      {
+        "id": "string",
+        "datum": "date",
+        "bearbeiter": "string",
+        "startzeit_1": "time",
+        "endzeit_1": "time",
+        "startzeit_2": "time",
+        "endzeit_2": "time",
+        "taetigkeitsbeschreibung": "string"
+      }
+    ]
+  },
+  "stueckliste": {
+    "id": "string",
+    "auftrag_id": "string",
+    "position_id": "string",
+    "projekt": "string",
+    "kunde_id": "string",
+    "auftragsnummer": "string",
+    "notizen": "string",
+    "erstellt_am": "datetime",
+    "eintraege": [
+      {
+        "id": "string",
+        "material": "string",
+        "menge": "float",
+        "einheit": "string",
+        "einzelpreis": "float",
+        "gesamtpreis": "float",
+        "beschreibung": "string"
+      }
+    ]
+  }
+}
+
+

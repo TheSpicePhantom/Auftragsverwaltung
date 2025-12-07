@@ -1,0 +1,119 @@
+[
+  {
+    "id": "R20251206112024142922",
+    "rechnungsnummer": "RE20251206112024",
+    "auftrag_id": "A20251206111414864417",
+    "kunde_id": "K20251206111330019344",
+    "rechnungsdatum": "2025-12-06T00:00:00",
+    "leistungsdatum": "2025-12-06T11:20:24.142952",
+    "faelligkeitsdatum": "2025-12-20T00:00:00",
+    "status": "Überfällig",
+    "positionen": [
+      {
+        "id": "POS20251206112005258970",
+        "bezeichnung": "Thermografie",
+        "menge": 10.0,
+        "einheit": "Std",
+        "einzelpreis": 40.0,
+        "gesamtpreis": 400.0,
+        "status": "zur Freigabe"
+      }
+    ],
+    "nettobetrag": 400.0,
+    "mwst_satz": 19.0,
+    "mwst_betrag": 76.0,
+    "bruttobetrag": 476.0,
+    "zahlungsart": "Überweisung",
+    "notizen": ""
+  },
+  {
+    "id": "R20251207154305305136",
+    "rechnungsnummer": "RE20251207154305",
+    "auftrag_id": "A20251206111414864417",
+    "kunde_id": "K20251206111330019344",
+    "rechnungsdatum": "2025-12-07T15:43:05.305167",
+    "leistungsdatum": "2025-12-07T15:43:05.305167",
+    "faelligkeitsdatum": "2025-12-21T15:43:05.305167",
+    "status": "Offen",
+    "positionen": [
+      {
+        "id": "POS20251206112005258970",
+        "bezeichnung": "Thermografie",
+        "menge": 10.0,
+        "einheit": "Std",
+        "einzelpreis": 40.0,
+        "gesamtpreis": 400.0,
+        "status": "Freigegeben"
+      },
+      {
+        "id": "POS20251206112652367857",
+        "bezeichnung": "Trockenbau",
+        "menge": 100.0,
+        "einheit": "m²",
+        "einzelpreis": 26.0,
+        "gesamtpreis": 2600.0,
+        "status": "in Bearbeitung"
+      },
+      {
+        "id": "POS20251207154305305187",
+        "bezeichnung": "Materialkosten - Trockenbau",
+        "menge": 1.0,
+        "einheit": "Stk",
+        "einzelpreis": 209.50000000000003,
+        "gesamtpreis": 209.50000000000003,
+        "status": "zur Freigabe"
+      }
+    ],
+    "nettobetrag": 3209.5,
+    "mwst_satz": 19.0,
+    "mwst_betrag": 609.8050000000001,
+    "bruttobetrag": 3819.3050000000003,
+    "zahlungsart": "Überweisung",
+    "notizen": ""
+  },
+  {
+    "id": "R20251207160448272064",
+    "rechnungsnummer": "RE20251207160448",
+    "auftrag_id": "A20251206111414864417",
+    "kunde_id": "K20251206111330019344",
+    "rechnungsdatum": "2025-12-07T16:04:48.272095",
+    "leistungsdatum": "2025-12-07T16:04:48.272095",
+    "faelligkeitsdatum": "2025-12-21T16:04:48.272095",
+    "status": "Offen",
+    "positionen": [
+      {
+        "id": "POS20251206112005258970",
+        "bezeichnung": "Thermografie",
+        "menge": 10.0,
+        "einheit": "Std",
+        "einzelpreis": 40.0,
+        "gesamtpreis": 400.0,
+        "status": "Freigegeben"
+      },
+      {
+        "id": "POS20251206112652367857",
+        "bezeichnung": "Trockenbau",
+        "menge": 100.0,
+        "einheit": "m²",
+        "einzelpreis": 26.0,
+        "gesamtpreis": 2600.0,
+        "status": "in Bearbeitung"
+      },
+      {
+        "id": "POS20251207160448272114",
+        "bezeichnung": "Materialkosten - Trockenbau",
+        "menge": 1.0,
+        "einheit": "Stk",
+        "einzelpreis": 209.50000000000003,
+        "gesamtpreis": 209.50000000000003,
+        "status": "zur Freigabe"
+      }
+    ],
+    "nettobetrag": 3209.5,
+    "mwst_satz": 19.0,
+    "mwst_betrag": 609.8050000000001,
+    "bruttobetrag": 3819.3050000000003,
+    "zahlungsart": "Überweisung",
+    "notizen": ""
+  }
+]
