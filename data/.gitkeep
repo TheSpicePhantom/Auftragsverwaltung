@@ -1,0 +1,2 @@
+# Diese Datei sorgt dafür, dass der data-Ordner in Git erhalten bleibt,
+# auch wenn alle JSON-Dateien ignoriert werden.
